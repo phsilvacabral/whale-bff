@@ -1,5 +1,5 @@
 import express from 'express';
-import { getTopCryptos } from '../controllers/cryptoController.js';
+import { getTopCryptos } from './crypto.controller.js';
 
 const router = express.Router();
 

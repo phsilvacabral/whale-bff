@@ -1,0 +1,33 @@
+# Node / Express BFF
+node_modules/
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Builds & caches
+dist/
+build/
+.cache/
+.tmp/
+.temp/
+.eslintcache
+.parcel-cache/
+.turbo/
+
+# Env & secrets
+.env
+.env.*
+*.env
+
+# IDE & OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Local data
+*.sqlite
+*.db

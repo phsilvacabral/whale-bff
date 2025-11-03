@@ -1,7 +1,7 @@
 import express from 'express';
-import { portfolioController } from '../controllers/portfolioController.js';
-import { authenticateToken } from '../middleware/auth.middleware.js';
-import { validate, portfolioSchema } from '../utils/validators.js';
+import { portfolioController } from './portfolio.controller.js';
+import { authenticateToken } from '../../middleware/auth.middleware.js';
+import { validate, portfolioSchema } from '../../utils/validators.js';
 
 const router = express.Router();
 

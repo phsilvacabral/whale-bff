@@ -1,5 +1,5 @@
 import express from 'express';
-import { anonymousController } from '../controllers/anonymousController.js';
+import { anonymousController } from './anonymous.controller.js';
 
 const router = express.Router();
 

@@ -6,14 +6,14 @@ import dotenv from 'dotenv';
 import swaggerUi from 'swagger-ui-express';
 import swaggerJsdoc from 'swagger-jsdoc';
 
-// Import routes
-import authRoutes from './routes/auth.routes.js';
-import usersRoutes from './routes/users.routes.js';
-import portfolioRoutes from './routes/portfolio.routes.js';
-import transactionsRoutes from './routes/transactions.routes.js';
-import aggregationRoutes from './routes/aggregation.routes.js';
-import anonymousRoutes from './routes/anonymous.routes.js';
-import cryptoRoutes from './routes/crypto.routes.js';
+// Import routes (features)
+import authRoutes from './features/auth/auth.routes.js';
+import usersRoutes from './features/users/users.routes.js';
+import portfolioRoutes from './features/portfolio/portfolio.routes.js';
+import transactionsRoutes from './features/transactions/transactions.routes.js';
+import aggregationRoutes from './features/aggregation/aggregation.routes.js';
+import anonymousRoutes from './features/anonymous/anonymous.routes.js';
+import cryptoRoutes from './features/crypto/crypto.routes.js';
 
 // Import middleware
 import errorHandler from './middleware/errorHandler.js';
@@ -39,7 +39,7 @@ const swaggerOptions = {
       },
     ],
   },
-  apis: ['./src/routes/*.js'],
+  apis: ['./src/features/**/*.js'],
 };
 
 const swaggerSpec = swaggerJsdoc(swaggerOptions);
