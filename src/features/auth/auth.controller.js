@@ -1,5 +1,4 @@
 import jwt from 'jsonwebtoken';
-import bcrypt from 'bcryptjs';
 import axios from 'axios';
 
 const USERS_SERVICE_URL = process.env.USERS_SERVICE_URL || 'http://localhost:3001';
@@ -9,14 +8,11 @@ export const authController = {
     try {
       const { name, email, password } = req.body;
 
-      // Hash da senha
-      const hashedPassword = await bcrypt.hash(password, 12);
-
-      // Chamar microserviço de usuários
-      const response = await axios.post(`${USERS_SERVICE_URL}/api/users`, {
+      // Delegar criação ao microserviço de usuários (faz hashing e validação)
+      const response = await axios.post(`${USERS_SERVICE_URL}/api/Auth/register`, {
         name,
         email,
-        password: hashedPassword
+        password
       });
 
       const user = response.data;
@@ -57,18 +53,12 @@ export const authController = {
     try {
       const { email, password } = req.body;
 
-      // Buscar usuário no microserviço
-      const response = await axios.get(`${USERS_SERVICE_URL}/api/users/email/${email}`);
+      // Delegar login ao microserviço de usuários (faz verificação e atualiza último login)
+      const response = await axios.post(`${USERS_SERVICE_URL}/api/Auth/login`, {
+        email,
+        password
+      });
       const user = response.data;
-
-      // Verificar senha
-      const isValidPassword = await bcrypt.compare(password, user.password);
-      if (!isValidPassword) {
-        return res.status(401).json({
-          error: 'Credenciais inválidas',
-          message: 'Email ou senha incorretos'
-        });
-      }
 
       // Gerar JWT
       const token = jwt.sign(
@@ -92,7 +82,7 @@ export const authController = {
         token
       });
     } catch (error) {
-      if (error.response?.status === 404) {
+      if (error.response?.status === 401 || error.response?.status === 404) {
         return res.status(401).json({
           error: 'Credenciais inválidas',
           message: 'Email ou senha incorretos'
